@@ -1,6 +1,6 @@
 # 4.1.2 Props
 
-- The same component can work with **different data**
+- The same component can work with **different data** (think functions)
 - Similar to attributes on HTML elements (consider `<img>`)
 
 ---
@@ -39,6 +39,9 @@ function RecommendedArtist(props) {
     </div>
   );
 }
+
+
+
 ```
 
 ---
@@ -50,6 +53,7 @@ We can use it like this:
   imageUrl="skrillex.jpg"
   artistName="Skrillex"
   numOfSongs={9}
+  //NUMBERS MUST BE IN {} or it assumes it's a different type(string?)
 />
 <RecommendedArtist
   imageUrl="helmet-thing.jpg"
@@ -101,6 +105,41 @@ function VideoPlayer(props) {
     </div>
   );
 }
+// using deconstructed:
+function VideoPlayer({videoUrl, width, height, descript}) {
+  return (
+    <div>
+      <video
+        src= {videoUrl}
+        width={width}
+        height={height}
+      />
+      <p>{descript}</p>
+    </div>
+  );
+}
+//
+//function Page () {
+  //return(
+//<div>
+//  <VideoPlayer videoUrl='bleh' width={123} height={456} descript='beans'>
+//</div>)
+//}
+
+//OR not-deconstructed
+function VideoPlayer(props) {
+  return (
+    <div>
+      <video
+        src= {props.videoUrl}
+        width={props.width}
+        height={props.height}
+      />
+      <p>{props.descript}</p>
+    </div>
+  );
+}
+
 ```
 
 ---
@@ -127,6 +166,29 @@ function Tweet(props) {
     </div>
   );
 }
+
+function Tweet(props) {
+  return (
+    <div>
+      <Avatar src={props.src} />
+      <div>
+        <p>
+          <span className="user-name">{props.userName}</span>
+          <span className="handle">{props.handle}</span>
+          <span className="date">{props.date}</span>
+        </p>
+        <p>{props.comment}</p>
+        <div>
+          <button>Reply</button>
+          <button>Retweet</button>
+          <button>Like</button>
+          <button>Share</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+//tweet buttons would be their own compontent etc
 ```
 
 ---
@@ -140,6 +202,19 @@ function Header(props) {
       <nav>
         <a href="/about">About</a>
         <a href="/contact">Contact</a>
+      </nav>
+    </header>
+  );
+}
+//
+function Header(props) {
+  return (
+    <header>
+      <h1>{props.title}</h1>
+
+      <nav>
+        <a href={props.nav.first.url}>{props.nav.first.label}</a>
+        <a href={props.nav.second.url}>{props.nav.second.label}</a>
       </nav>
     </header>
   );
@@ -254,6 +329,23 @@ const pets = [
     />
   </ul>
 </div>;
+
+//
+<div>
+  <h1 className="title">My pets:</h1>
+  <ul>
+    {pets.map(pet => {
+      <PetInfo
+        name={pet.name}
+        age={pet.age}
+        species={pet.species}
+        breed={pet.breed}
+      />
+    })};
+  </ul>
+</div>;
+//also could just pass pet to PetInfo if it deconstructs on that end 
+//<PetInfo pet={pet}>
 ```
 
 ---
@@ -288,6 +380,15 @@ const pizzaToppings = [
   <Topping name="green pepper" />
   <Topping name="broccoli" />
 </Pizza>
+
+<Pizza>
+  {pizzaTopping
+    .filter(topping=>topping.isVegetarian)
+    .map(topping => <Topping name={topping.name}>)
+  }
+</Pizza>
+
+
 ```
 
 Hint: You'll need `filter` as well as `map`

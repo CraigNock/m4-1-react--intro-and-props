@@ -14,8 +14,10 @@ function Button(props) {
   ✂️
 }
 
-// make it _importable_ from other files_
+// make it _importable_ for other files_
 export default Button;
+//if multiple:  {button, otherfunc, etc}
+//default?
 ```
 
 ```js
@@ -61,13 +63,13 @@ import './App.css'
 
 The official package manager is NPM (Node Package Manager).
 
-We use Yarn, which works mostly the same way, but is a bit faster/_better_. 🤔
+We use Yarn, which works mostly the same way, but is a bit faster?. 🤔
 
 ---
 
 # Package.json Scripts
 
-- Run a local development server with `yarn start`
+- Run a local development server with `yarn start` 
 - This spins up an Express server that rebuilds your app on every change. 😮
 
 ---
