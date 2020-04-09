@@ -140,7 +140,7 @@ A _slot_ in which we can write JavaScript expressions.
 ```jsx
 let index = 0;
 
-<div id={'item-' + index} />;
+<div id={`item-${index}`} />;
 ```
 
 ---
@@ -154,6 +154,7 @@ render(
     There are {awakeStudents + asleepStudents} students in the class.
   </div>
 );
+//updates with any changes to values
 ```
 
 ---
@@ -162,6 +163,8 @@ render(
 <li className={isOnline && 'green'}>{user.username}</li>
 
 // ⚠️ New notation! another way to use of &&.
+// if isOnline is true, className = 'green' eg: isOnline?'green':''
+//&& as soon as it hits a false it stops, so if onLine is false it doesn't make it to 'green' 
 ```
 
 ---
@@ -173,11 +176,17 @@ Convert this JSX snippet to HTML:
 ```jsx
 let birthdayCakeImage = '/images/cake.jpg';
 let age = 10;
-
+//jsx
 <div className="wrapper">
-  <img src={birthdayCakeImage} />
+  <img src={birthdayCakeImage} alt='cake'/>
   <p>Happy {age}th birthday!</p>
 </div>;
+//html
+<div class="wrapper">
+  <img src='/images/cake.jpg' alt='cake'/>
+  <p>Happy 10th birthday!</p>
+</div>
+
 ```
 
 ---
@@ -186,16 +195,26 @@ Convert this one too:
 
 ```jsx
 let agreeToTerms = false;
-
+//jsx
 <div>
   <label htmlFor="terms-of-service">
-    <input type="checkbox" id="terms-of-service" /> I agree to the terms
+    <input name="terms-of-service" type="checkbox" id="terms-of-service" /> I agree to the terms
   </label>
 
   {agreeToTerms && (
     <div>YOUR SOUL BELONGS TO ME MWAHAHAHAHAAAAAAHHHHHH!!!1</div>
   )}
 </div>;
+//html
+<div>
+  <label for="terms-of-service">
+    <input name="terms-of-service" type="checkbox" id="terms-of-service" /> I agree to the terms
+  </label>
+  
+</div>
+
+//in jsx (if false) is removed completely from dom (without css any display:none shenanigans would still exist in the html) 
+
 ```
 
 ---
@@ -217,7 +236,7 @@ const pets = [
     breed: 'ragdoll',
   },
 ];
-
+//jsxs
 <div>
   <h1 className="title">My pets:</h1>
   <ul>
@@ -262,6 +281,68 @@ const pets = [
     </li>
   </ul>
 </div>;
+
+const pets = [
+  {
+    name: 'Bark Obama',
+    age: 3,
+    species: 'dog',
+    breed: 'Labradoodle',
+  },
+  {
+    name: 'Chairman Meow',
+    age: 8,
+    species: 'cat',
+    breed: 'ragdoll',
+  },
+];
+//html
+<div>
+  <h1 class="title">My pets:</h1>
+  <ul>
+    <li>
+      <h3>'Bark Obama'</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Age</th>
+            <th>Species</th>
+            <th>Breed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>3</td>
+            <td>dog</td>
+            <td>Labradoodle</td>
+          </tr>
+        </tbody>
+      </table>
+    </li>
+
+    <li>
+      <h3>Chairman Meow</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Age</th>
+            <th>Species</th>
+            <th>Breed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>8</td>
+            <td>cat</td>
+            <td>ragdoll</td>
+          </tr>
+        </tbody>
+      </table>
+    </li>
+  </ul>
+</div>
+
+
 ```
 
 ---
@@ -329,6 +410,9 @@ Now it fits on the screen:
     />
   </ul>
 </div>
+
+//component PetInfo has been made elsewhere *note: < components are self-closing tags />
+//COMPONENTS are always named starting with an UPPERCASE (think Classes)
 ```
 
 ---
